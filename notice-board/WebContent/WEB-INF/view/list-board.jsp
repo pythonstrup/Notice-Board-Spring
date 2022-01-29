@@ -14,10 +14,11 @@
 	
 		<table>
 			<tr>
-				<td>num</td>
-				<td>title</td>
-				<td>visitcount</td>
-				<td>postdate</td>
+				<td>Number</td>
+				<td>Title</td>
+				<td>Visit Count</td>
+				<td>Post Date</td>
+				<td>Modify</td>
 			</tr>
 			
 			<c:forEach var="tempBoard" items="${boards}">
@@ -25,16 +26,32 @@
 			<c:url var="contentLink" value="/board/content">
 				<c:param name="contentId" value="${ tempBoard.id }"></c:param>
 			</c:url>
+			
+			<c:url var="updateLink" value="/board/update">
+				<c:param name="contentId" value="${ tempBoard.id }"></c:param>
+			</c:url>
+			
+			<c:url var="deleteLink" value="/board/delete">
+				<c:param name="contentId" value="${ tempBoard.id }"></c:param>
+			</c:url>
+			
 				<tr>
 					<td>${ tempBoard.id }</td>
 					<td><a href="${contentLink}">${ tempBoard.title }</a></td>
 					<td>${ tempBoard.visitcount }</td>
 					<td>${ tempBoard.postdate }</td>
+					<td>
+						<a href="${ updateLink }">Update</a>
+						|
+						<a href="${ deleteLink }">Delete</a>
+					</td>
 				</tr>
 			</c:forEach>
 			
 		</table>
-	
+		
+		<input type="button" value="Write Board"
+			onclick="window.location.href='write'; return false;"/>
 	</div>
 
 </body>

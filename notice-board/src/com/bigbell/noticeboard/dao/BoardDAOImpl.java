@@ -1,5 +1,6 @@
 package com.bigbell.noticeboard.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -39,6 +40,31 @@ public class BoardDAOImpl implements BoardDAO {
 		Board board = currentSession.get(Board.class, id);
 		
 		return board;
+	}
+
+	@Override
+	public void saveBoard(Board board) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// java.sql.SQLIntegrityConstraintViolationException 오류가 발생하기 때문에 설정해줘야함.
+		// write-form에서 form:hidden 태그를 통해 해결가능!!!
+//		board.setVisitcount(0);
+		board.setPostdate(new Timestamp(System.currentTimeMillis()));
+		
+		currentSession.saveOrUpdate(board);
+	}
+
+	@Override
+	public void deleteBoard(int id) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query query = 
+				currentSession.createQuery("delete from Board where id=:customerId");
+		query.setParameter("customerId", id);
+		
+		query.executeUpdate();
 	}
 
 	

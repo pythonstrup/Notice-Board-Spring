@@ -28,6 +28,20 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDao.getBoard(id);
 	}
+
+	@Override
+	@Transactional
+	public void saveBoard(Board board) {
+		
+		boardDao.saveBoard(board);
+	}
+
+	@Override
+	@Transactional
+	public void deleteBoard(int id) {
+		
+		boardDao.deleteBoard(id);
+	}
 	
 	
 }
